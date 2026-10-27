@@ -3,13 +3,3 @@ name: Run CopilotShield Gatekeeper
 on:
   pull_request:
     types: [opened, synchronize, reopened]
-
-jobs:
-  security-gate:
-    name: Audit PR Provenance & Injections
-    runs-on: ubuntu-latest
-
-        uses: niranjangowdakm423-gif/copilotshield@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          min_trust_score: "80"

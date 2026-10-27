@@ -1,0 +1,26 @@
+name: Run CopilotShield Gatekeeper
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  security-gate:
+    name: Audit PR Provenance & Injections
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Allows posting the audit comment
+      statuses: write      # Allows setting the Pass/Block commit check
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run CopilotShield Gatekeeper
+        uses: niranjangowdakm423-gif/copilotshield@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          min_trust_score: "80"
